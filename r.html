@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notre Menu - Restaurant du Coin</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+    
+    :root{
+      --primary:#6366f1;
+      --primary-dark:#4f46e5;
+      --primary-glow:rgba(99,102,241,0.4);
+      --accent:#f97316;
+      --accent-glow:rgba(249,115,22,0.4);
+      --bg:#eef2ff;
+      --card:rgba(255,255,255,0.75);
+      --text:#0f172a;
+      --text-light:#64748b;
+      --radius:24px;
+      --shadow:0 25px 60px -15px rgba(99,102,241,0.25);
+      --transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 25%, var(--primary-glow) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, var(--accent-glow) 0%, transparent 40%);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+    }
+    .menu {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .menu li a {
+      display: block;
+      padding: 22px 30px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+    }
+    .menu li a::before{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 4px 4px 0 0;
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    .menu li a:hover,
+    .menu li a.active {
+      color: var(--primary-dark);
+    }
+    .menu li a:hover::before,
+    .menu li a.active::before {
+      width: 50%;
+    }
+
+    .categorie {
+      padding: 5rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .categorie-titre {
+      text-align: center;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--primary) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+      animation: slideInFade 1.2s ease-out, gradientShift 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes slideInFade {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .categorie-sous-titre{
+      text-align: center;
+      color: var(--text-light);
+      font-size: 1.2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .produits {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .produit {
+      background: var(--card);
+      backdrop-filter: blur(25px) saturate(180%);
+      padding: 0;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.7);
+      position: relative;
+    }
+    .produit::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+    .produit:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 70px -10px rgba(99,102,241,0.35);
+    }
+    .produit:hover::before{
+      transform: scaleX(1);
+    }
+
+    .produit-img{
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      position: relative;
+    }
+    .produit img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .produit:hover img {
+      transform: scale(1.08);
+    }
+    
+    .badge{
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, var(--accent), #ea580c);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(249,115,22,0.4);
+     }
+    
+    .produit-content{
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; 
+    }
+
+    .produit h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .produit-desc{
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .prix {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+      font-size: 1.6rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(99,102,241,0.3);
+      border: none;
+      cursor: pointer;
+      margin-top: auto;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(99,102,241,0.45);
+    }
+    
+    footer {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 5rem;
+    }
+    
+    @media (max-width: 900px) {
+      .produits {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .produits {
+        grid-template-columns: 1fr;
+      }
+      .menu {
+        flex-direction: column;
+        align-items: center;
+      }
+      .menu li a{ padding: 16px 20px; }
+      .categorie{ padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul class="menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="menu.html" class="active">Menu</a></li>
+      <li><a href="À propos.html">À propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <section class="categorie">
+    <h1 class="categorie-titre">Nos spécialités africaines </h1>
+    <p class="categorie-sous-titre">Cuisine ivoirienne authentique, préparée avec amour. Livraison en 30min à Abidjan</p>
+    <div class="produits">
+      
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Populaire</span>
+          <img src="e1.jpg" alt="Garba">
+        </div>
+        <div class="produit-content">
+          <h3>Garba Complet</h3>
+          <p class="produit-desc">Attiéké, thon frit, oignon, piment, huile rouge. Le plat national ivoirien.</p>
+          <p class="prix">2.500 FCFA</p>
+          <a href="#" class="btn">Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">-20%</span>
+          <img src="e2.jpg" alt="Alloco">
+        </div>
+        <div class="produit-content">
+          <h3>Alloco Poulet</h3>
+          <p class="produit-desc">Banane plantain frite, poulet braisé, sauce oignon tomate épicée.</p>
+          <p class="prix">3.500 FCFA</p>
+          <a href="#" class="btn">Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <img src="e3.jpg" alt="Kedjenou">
+        </div>
+        <div class="produit-content">
+          <h3>Kedjenou de Poulet</h3>
+          <p class="produit-desc">Poulet mijoté à l’étouffée avec légumes, servi avec attiéké.</p>
+          <p class="prix">4.000 FCFA</p>
+          <a href="#" class="btn">Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Chef</span>
+          <img src="e4.jpg" alt="Sauce Graine">
+        </div>
+        <div class="produit-content">
+          <h3>Sauce Graine Poisson</h3>
+          <p class="produit-desc">Sauce aux noix de palme, poisson frais, servi avec foutou banane.</p>
+          <p class="prix">5.000 FCFA</p>
+          <a href="#" class="btn">Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <img src="e5.jpg" alt="Placali">
+        </div>
+        <div class="produit-content">
+          <h3>Placali Sauce Kopè</h3>
+          <p class="produit-desc">Pâte de manioc, sauce gombo frais, viande ou poisson au choix.</p>
+          <p class="prix">3.000 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Nouveau</span>
+          <img src="e6.jpg" alt="Tchep">
+        </div>
+        <div class="produit-content">
+          <h3>Tchep Poulet</h3>
+          <p class="produit-desc">Riz sénégalais au poulet, légumes, parfumé aux épices. Un délice.</p>
+          <p class="prix">3.500 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <img src="e7.jpg" alt="Foutou">
+        </div>
+        <div class="produit-content">
+          <h3>Foutou Sauce Aubergine</h3>
+          <p class="produit-desc">Banane + manioc pilés, sauce aubergine à la viande de bœuf.</p>
+          <p class="prix">4.500 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Épicé</span>
+          <img src="e8.jpg" alt="Poisson Braisé">
+        </div>
+        <div class="produit-content">
+          <h3>Poisson Braisé</h3>
+          <p class="produit-desc">Carpe ou capitaine grillé, attiéké, alloco, piment. Le vrai goût.</p>
+          <p class="prix">6.000 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <img src="e9.jpg" alt="Sauce Claire">
+        </div>
+        <div class="produit-content">
+          <h3>Sauce Claire Mouton</h3>
+          <p class="produit-desc">Bouillon parfumé au mouton, igname ou riz. Léger et savoureux.</p>
+          <p class="prix">4.000 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <img src="e10.jpg" alt="Brochettes">
+        </div>
+        <div class="produit-content">
+          <h3>Brochettes de Bœuf</h3>
+          <p class="produit-desc">5 brochettes marinées, attiéké ou alloco, sauce pimentée maison.</p>
+          <p class="prix">3.000 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Top vente</span>
+          <img src="e11.jpg" alt="Attiéké Poisson">
+        </div>
+        <div class="produit-content">
+          <h3>Attiéké Poisson Thon</h3>
+          <p class="produit-desc">Le classique : attiéké huilé, thon frit, oignon, tomate, piment.</p>
+          <p class="prix">2.000 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <img src="e12.jpg" alt="Bissap">
+        </div>
+        <div class="produit-content">
+          <h3>Menu Famille 4 pers</h3>
+          <p class="produit-desc">1 Kedjenou + 1 Garba + 1 Alloco + 1L Bissap. Économie 2000F.</p>
+          <p class="prix">12.000 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+              <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Épicé</span>
+          <img src="e13.jpg" alt="Riz Sauce Arachide">
+        </div>
+        <div class="produit-content">
+          <h3>Riz Sauce Arachide</h3>
+          <p class="produit-desc">Riz blanc nappé de sauce arachide onctueuse au bœuf, légumes du marché.</p>
+          <p class="prix">3.500 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <img src="e14.jpg" alt="Soukouya">
+        </div>
+        <div class="produit-content">
+          <h3>Soukouya de Mouton</h3>
+          <p class="produit-desc">Viande de mouton grillée aux épices, attiéké, alloco. Spécialité du nord.</p>
+          <p class="prix">5.500 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Frais</span>
+          <img src="e15.jpg" alt="Bissap">
+        </div>
+        <div class="produit-content">
+          <h3>Bissap Maison 1L</h3>
+          <p class="produit-desc">Jus d’hibiscus bien glacé, menthe fraîche, sans colorant. Le vrai goût.</p>
+          <p class="prix">1.500 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+
+      <div class="produit">
+        <div class="produit-img">
+          <span class="badge">Dessert</span>
+          <img src="e16.jpg" alt="Degue">
+        </div>
+        <div class="produit-content">
+          <h3>Degue au Mil</h3>
+          <p class="produit-desc">Yaourt onctueux, grains de mil, vanille. Dessert ivoirien traditionnel.</p>
+          <p class="prix">1.000 FCFA</p>
+          <a href="#" class="btn"> Commander</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <p>© 2026 Restaurant du Coin. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
