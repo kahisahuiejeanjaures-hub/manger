@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact - Ma Boutique</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+    
+    :root{
+      --primary:#6366f1;
+      --primary-dark:#4f46e5;
+      --primary-glow:rgba(99,102,241,0.4);
+      --accent:#f97316;
+      --accent-glow:rgba(249,115,22,0.4);
+      --bg:#eef2ff;
+      --card:rgba(255,255,255,0.75);
+      --text:#0f172a;
+      --text-light:#64748b;
+      --success:#10b981;
+      --error:#ef4444;
+      --radius:24px;
+      --shadow:0 25px 60px -15px rgba(99,102,241,0.25);
+      --transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 25%, var(--primary-glow) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, var(--accent-glow) 0%, transparent 40%);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* Menu Glassmorphism Premium */
+    nav {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+    }
+    .menu {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .menu li a {
+      display: block;
+      padding: 22px 30px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+    }
+    .menu li a::before{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 4px 4px 0 0;
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    .menu li a:hover,
+    .menu li a.active {
+      color: var(--primary-dark);
+    }
+    .menu li a:hover::before,
+    .menu li a.active::before {
+      width: 50%;
+    }
+
+    /* Section contact */
+    .contact {
+      padding: 6rem 2rem;
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+    
+    .contact-header{
+      text-align: center;
+      margin-bottom: 5rem;
+      animation: fadeUp 1s ease;
+    }
+    .contact-header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.2rem;
+      letter-spacing: -1px;
+    }
+    .contact-header p{
+      color: var(--text-light);
+      font-size: 1.25rem;
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+    
+    .contact-grid{
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* Carte infos avec effet aurora */
+    .contact-info {
+      background: var(--card);
+      backdrop-filter: blur(25px) saturate(180%);
+      padding: 3.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.7);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-info::after{
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 180deg at 50% 50%, var(--primary-glow) 0deg, transparent 60deg, var(--accent-glow) 120deg, transparent 180deg);
+      animation: rotate 15s linear infinite;
+      z-index: 0;
+      opacity: 0.6;
+    }
+    .contact-info *{ position: relative; z-index: 1; }
+    
+    .contact-info h3{
+      color: var(--primary-dark);
+      margin-bottom: 2.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .info-item:hover{
+      background: rgba(99,102,241,0.06);
+      transform: translateX(8px);
+    }
+      .info-item{
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 1.8rem;
+      padding: 1rem;
+      border-radius: 16px;
+      transition: var(--transition);
+    }
+    .info-icon{
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 20px rgba(99,102,241,0.3);
+    }
+    .info-item div strong{ 
+      display: block;
+      color: var(--text); 
+      margin-bottom: 3px;
+      font-weight: 600;
+    }
+    .info-item div span{ color: var(--text-light); }
+    
+    .btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 1.2rem 2.5rem;
+      text-decoration: none;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 2rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 12px 30px rgba(99,102,241,0.35);
+      font-size: 1.05rem;
+    }
+    .btn:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(99,102,241,0.45);
+    }
+    .btn:active{ transform: translateY(-2px); }
+    .btn:disabled{
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Formulaire premium */
+    .contact-form {
+      background: var(--card);
+      backdrop-filter: blur(25px) saturate(180%);
+      padding: 3.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+    .contact-form h3{
+      color: var(--primary-dark);
+      margin-bottom: 2.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .form-group {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      border: 2px solid rgba(226,232,240,0.8);
+      border-radius: 16px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background: rgba(248,250,252,0.6);
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group textarea:focus{
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 5px rgba(99,102,241,0.12);
+      transform: translateY(-2px);
+    }
+    .form-group.error input, .form-group.error textarea{
+      border-color: var(--error);
+      background: rgba(239,68,68,0.05);
+    }
+    .error-msg{
+      color: var(--error);
+      font-size: 0.85rem;
+      margin-top: 8px;
+      display: none;
+      font-weight: 500;
+    }
+    .form-group.error .error-msg{ display: block; }
+    
+    .form-status{
+      padding: 1.2rem 1.5rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      display: none;
+      font-weight: 600;
+      animation: fadeUp 0.5s ease;
+    }
+    .form-status.success{
+      background: rgba(16,185,129,0.12);
+      color: var(--success);
+      border: 1px solid rgba(16,185,129,0.3);
+      display: block;
+    }
+    .form-status.error{
+      background: rgba(239,68,68,0.12);
+      color: var(--error);
+      border: 1px solid rgba(239,68,68,0.3);
+      display: block;
+    }
+    
+    footer {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 6rem;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(50px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+    @keyframes rotate{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+    
+    @media (max-width: 1024px) {
+      .contact-grid{ grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 640px) {
+      .menu { flex-direction: column; align-items: center; }
+      .menu li a{ padding: 16px 20px; }
+      .contact{ padding: 4rem 1.5rem; }
+      .contact-header h1 { font-size: 2.5rem; }
+      .contact-info, .contact-form{ padding: 2.5rem 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul class="menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="À propos.html">À propos</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <section class="contact">
+    <div class="contact-header">
+      <h1>Contactez-nous</h1>
+      <p>Une question sur un produit ? Un souci de commande ? Notre équipe te répond en moins de 2h sur WhatsApp.</p>
+    </div>
+    
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Contacte-nous directement</h3>
+        
+        <div class="info-item">
+          <div class="info-icon"></div>
+          <div>
+            <strong>Téléphone / WhatsApp</strong>
+            <span>+225 0585755256</span>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon"></div>
+          <div>
+            <strong>Email</strong>
+            <span>kahisahuiejeanjaures@gmail.com</span>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon"></div>
+          <div>
+            <strong>Adresse</strong>
+            <span>Abidjan, Cocody, Côte d'Ivoire</span>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon"></div>
+          <div>
+            <strong>Horaires</strong>
+            <span>Lun - Sam : 8h à 20h</span>
+          </div>
+        </div>
+        
+        <a href="https://wa.me/2250585755256" class="btn">
+           WhatsApp direct
+        </a>
+      </div>
+
+      <!-- REMPLACE TON_ID par ton lien Formspree -->
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/TON_ID" method="POST">
+        <h3>Envoie-nous un message</h3>
+        <div id="formStatus" class="form-status"></div>
+        
+        <div class="form-group">
+          <label for="nom">Nom complet *</label>
+          <input type="text" id="nom" name="nom" placeholder="Ex: Koffi Jean" required>
+          <span class="error-msg">Le nom doit faire au moins 2 caractères</span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="Ex: jean@gmail.com" required>
+          <span class="error-msg">Entre un email valide</span>
+        </div>
+        <div class="form-group">
+          <label for="tel">Numéro WhatsApp *</label>
+          <input type="tel" id="tel" name="telephone" placeholder="Ex: 0700000000" required>
+          <span class="error-msg">Entre un numéro valide</span>
+        </div>
+        <div class="form-group">
+          <label for="sujet">Sujet *</label>
+          <input type="text" id="sujet" name="sujet" placeholder="Ex: Question sur un ménu" required>
+          <span class="error-msg">Le sujet est requis</span>
+        </div>
+        <div class="form-group">
+          <label for="message">Ton message *</label>
+          <textarea id="message" name="message" rows="5" placeholder="Dis-nous tout..." required></textarea>
+          <span class="error-msg">Le message doit faire au moins 10 caractères</span>
+        </div>
+        <button type="submit" class="btn" id="submitBtn">Envoyer le message </button>
+      </form>
+    </div>
+  </section>
+  
+  <footer>
+    <p>© 2026 Restaurant du Coin. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formStatus = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      
+      let isValid = true;
+      const fields = ['nom', 'email', 'tel', 'sujet', 'message'];
+      
+      document.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
+      
+      fields.forEach(field => {
+        const input = document.getElementById(field);
+        const value = input.value.trim();
+        
+        if(field === 'nom' && value.length < 2) {
+          input.parentElement.classList.add('error');
+          isValid = false;
+        }
+        if(field === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          input.parentElement.classList.add('error');
+          isValid = false;
+        }
+        if(field === 'tel' && !/^[0-9+\s]{8,}$/.test(value)) {
+          input.parentElement.classList.add('error');
+          isValid = false;
+        }
+        if(field === 'sujet' && value.length < 3) {
+          input.parentElement.classList.add('error');
+          isValid = false;
+        }
+        if(field === 'message' && value.length < 10) {
+          input.parentElement.classList.add('error');
+          isValid = false;
+        }
+      });
+      
+      if(!isValid) return;
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours...';
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        
+        if(response.ok){
+          formStatus.className = 'form-status success';
+          formStatus.textContent = '✅ Message envoyé ! On te répond très vite sur WhatsApp.';
+          form.reset();
+        } else {
+          throw new Error();
+        }
+      } catch(error){
+        formStatus.className = 'form-status error';
+        formStatus.textContent = '❌ Erreur d\'envoi. Réessaie ou écris-nous sur WhatsApp direct.';
+      }
+      
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Envoyer le message 🚀';
+    });
+  </script>
+</body>
+</html>
