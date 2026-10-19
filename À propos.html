@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>À propos - Restaurant du Coin</title>
+  
+  <style>
+    :root{
+      --primary:#6366f1; /* Indigo */
+      --primary-dark:#4f46e5;
+      --accent:#f97316;  /* Orange */
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --text:#1e293b;
+      --text-light:#64748b;
+      --radius:18px;
+      --shadow:0 15px 35px rgba(99,102,241,0.12);
+      --transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* Menu Glassmorphism */
+    nav {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .menu {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .menu li a {
+      display: block;
+      padding: 18px 25px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+    }
+    .menu li a::after{
+      content: '';
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    .menu li a:hover,
+    .menu li a.active {
+      color: var(--primary);
+    }
+    .menu li a:hover::after,
+    .menu li a.active::after {
+      width: 30%;
+    }
+
+    /* Section À propos */
+    .about {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .about h1 {
+      text-align: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 40px;
+      animation: fadeUp 0.8s ease;
+    }
+
+    .about-content {
+      background: var(--card);
+      padding: 50px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(99,102,241,0.08);
+    }
+
+    .about-content h2 {
+      color: var(--text);
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .about-content h2::before{
+      content: '';
+      width: 6px;
+      height: 28px;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      border-radius: 6px;
+    }
+
+    .about-content p {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      color: var(--text-light);
+    }
+
+    /* Features cards */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .feature-box {
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      padding: 30px 25px;
+      border-radius: var(--radius);
+      text-align: center;
+      border: 1px solid rgba(99,102,241,0.1);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-box::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .feature-box:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow);
+    }
+    .feature-box:hover::before{
+      transform: scaleX(1);
+    }
+    .feature-box h3 {
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+    }
+
+    /* Footer dégradé */
+    footer {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+    }
+
+    /* Animations */
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(30px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+     
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu { flex-direction: column; align-items: center; }
+      .menu li a::after{ bottom: 8px; }
+      .features { grid-template-columns: 1fr; }
+      .about-content { padding: 30px 25px; }
+      .about h1 { font-size: 2.2rem; }
+
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul class="menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="À propos.html" class="active">À propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="about">
+    <h1>À propos du Restaurant du Coin</h1>
+    
+    <div class="about-content">
+      <h2>Notre histoire</h2>
+      <p>
+        Le Restaurant du Coin a ouvert ses portes en 2018 au cœur du Plateau à Abidjan. Né de la passion de Chef Konan pour la cuisine ivoirienne revisitée, notre mission est simple : faire découvrir les saveurs authentiques de la Côte d'Ivoire avec une touche moderne.
+      </p>
+      
+      <h2>Notre cuisine</h2>
+      <p>
+        Ici, tout est fait maison avec des produits frais du marché d’Adjamé et des épices locales. Du garba premium au foutou sauce graine signature, en passant par nos grillades au feu de bois, chaque plat raconte une histoire. On mélange tradition et créativité pour surprendre vos papilles.
+      </p>
+
+      <h2>Pourquoi venir chez nous ?</h2>
+      <div class="features">
+        <div class="feature-box">
+          <h3> Cuisson au feu de bois</h3>
+          <p>Poulet braisé, poisson et brochettes grillés devant vous pour un goût inimitable.</p>
+        </div>
+        <div class="feature-box">
+          <h3> 100% Produits frais</h3>
+          <p>Marché tous les matins. Pas de surgelé, pas de cube magique. Juste du vrai.</p>
+        </div>
+        <div class="feature-box">
+          <h3> Ambiance Maquis Chic </h3>
+          <p>Zouglou, coupé-décalé, terrasse animée. Mangez comme à la maison, mais en mieux.</p>
+        </div>
+      </div>
+
+      <h2>Notre engagement</h2>
+      <p>
+        Au Restaurant du Coin, on ne sert pas juste à manger. On crée des souvenirs. Que tu viennes en famille, entre collègues ou pour un date, notre équipe te reçoit avec le sourire. La qualité et l’hospitalité ivoirienne, c’est notre marque de fabrique. Akwaba !
+      </p>
+    </div>
+  </section>
+  <footer>
+    <p>© 2026 Restaurant du Coin. Abidjan, Plateau. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
